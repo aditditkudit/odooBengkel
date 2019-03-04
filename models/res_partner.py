@@ -26,10 +26,3 @@ class res_partner(models.Model):
         return super(res_partner, self).create(values)
     
     
-    
-    
-    
-    
-    
-    
-    

@@ -35,6 +35,21 @@
             </field>
         </record>
 
+        <!-- Montir search view -->
+        <record id="view_cb_bengkel_search" model="ir.ui.view">
+            <field name="name">cb.montir.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Montir">
+                    <!-- Add your fields here -->
+                    <field name="kode"/>
+                    <field name="name"/>
+                    <field name="mobile" string="No HP/Telp"/>
+                    <filter name="group_nama" string="Nama" domain="[]" context="{'group_by':'name'}" />
+                </search>
+            </field>
+        </record>
+
         <!-- action window tree montir -->
         <record id="cb_montir_action_tree" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>
