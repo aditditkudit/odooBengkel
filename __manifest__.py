@@ -26,6 +26,7 @@
         # 'security/ir.model.access.csv',
         'views/menu_bengkel.xml',
         'views/res_partner.xml',
+        'views/cb_lining.xml',
 
     ],
     # only loaded in demonstration mode
