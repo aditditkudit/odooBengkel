@@ -5,7 +5,6 @@
         <!-- Montir action window -->
         <record id="action_montir_list" model="ir.actions.act_window">
             <field name="name">Daftar Montir</field>
-            <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form</field>
             <field name="view_type">form</field>
@@ -23,6 +22,25 @@
             </field>
         </record>
 
+        <!-- Customer action window -->
+        <record id="action_customer_list" model="ir.actions.act_window">
+            <field name="name">Daftar Customer</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="context">{'default_kustomer':True}</field>
+            <field name="domain">[('kustomer', '=', True)]</field>
+            <field name="search_view_id" ref="view_cb_customer_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                    Clik to add a Customer
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                    Klik Tombol Create untuk bikin Customer Baru
+                </p>
+            </field>
+        </record>
             
 
         <!-- Menu Bar Item must have a parent and an action -->
@@ -33,6 +51,9 @@
 
         <!-- Data Montir Menu Item must have a parent and an action -->
         <menuitem id="masterBengkel_1" name="Montir" parent="masterBengkel_0" action="action_montir_list" sequence="20"/>
+        
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="masterBengkel_2" name="Customer" parent="masterBengkel_0" action="action_customer_list" sequence="30"/>
 
 
     </data>

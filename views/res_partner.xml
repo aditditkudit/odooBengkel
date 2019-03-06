@@ -66,5 +66,80 @@
             <field name="act_window_id" ref="action_montir_list"/>
         </record>
 
+        <!-- CUSTOMER -->
+        <!-- Customer form view -->
+        <record id="cb_customer_form_view" model="ir.ui.view">
+            <field name="name">cb.customer.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Customer">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="kode" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <!-- Add your fields here -->
+                            <field name="name" string="Nama" required="1"/>
+                            <field name="jenis_kelamin"/>
+                            <field name="tgl_lahir"/>
+                            <field name="street" string="Alamat" required="1"/>
+                            <field name="pekerjaan" required="1"/>
+                            <field name="nama_pekerjaan" attrs="{'required': [('pekerjaan', '=', 'lain')], 'invisible':[('pekerjaan', '!=', 'lain')]}"/>
+                            <field name="kustomer" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Customer tree view -->
+        <record id="cb_customer_tree" model="ir.ui.view">
+            <field name="name">cb.customer.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Pasien">
+                    <!-- Add your fields here -->
+                    <field name="kode"/>
+                    <field name="name"/>
+                    <field name="pekerjaan"/>
+                    <field name="jenis_kelamin"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- customer search view -->
+        <record id="view_cb_customer_search" model="ir.ui.view">
+            <field name="name">cb.customer.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Customer">
+                    <!-- Add your fields here -->
+                    <field name="kode"/>
+                    <field name="name"/>
+                    <field name="pekerjaan"/>
+                    <filter name="group_pekerjaan" string="Pekerjaan" domain="[]" context="{'group_by':'pekerjaan'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cb_customer_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="cb_customer_tree"/>
+            <field name="act_window_id" ref="action_customer_list"/>
+        </record>
+
+        <record id="cb_customer_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cb_customer_form_view"/>
+            <field name="act_window_id" ref="action_customer_list"/>
+        </record>
+
+        
+
+
     </data>
 </odoo>

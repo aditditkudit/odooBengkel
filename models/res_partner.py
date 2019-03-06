@@ -5,11 +5,17 @@ class res_partner(models.Model):
     _inherit = "res.partner"
 
     montir = fields.Boolean(string="Montir")
-    customer = fields.Boolean(string="Customer")
+    kustomer = fields.Boolean(string="Customer")
     kode = fields.Char(string="Kode", default="/")
     name = fields.Char(string="Nama")
     tgl_lahir = fields.Date(string='Tanggal Lahir')
-    pekerjaan = fields.Selection(string='Pekerjaan', selection=[('pelajar_mhs', 'Pelajar/Mahasiswa'), ('pegawai_negri', 'Pegawai Negri'),('swasta','Swasta'),('lain','Lain-Lain')],)
+    nama_pekerjaan = fields.Char(string='Nama Pekerjaan')
+    pekerjaan = fields.Selection([
+        ('pelajar_mhs','Pelajar/Mahasiswa'),
+        ('pegawai_negeri','Pegawai Negeri'),
+        ('swasta','Swasta'),
+        ('lain','Lain-Lain'),
+    ], string='Pekerjaan')
     jenis_kelamin = fields.Selection(string='Jenis Kelamin', selection=[('laki', 'Laki-Laki'), ('perempuan', 'Perempuan'),])
 
     _sql_constraints = [
@@ -19,7 +25,7 @@ class res_partner(models.Model):
     @api.model
     def create(self, values):
         # Add code here
-        if values.get('customer', False):
+        if values.get('kustomer', False):
             values['kode'] = self.env['ir.sequence'].get_sequence('Kode Customer','res.partner','CSTR')
         elif values.get('montir', False) and ('kode' not in values or values.get('kode', False) == '/'):
             values['kode'] = self.env['ir.sequence'].get_sequence('Kode Montir','res.partner', 'MNTR')
