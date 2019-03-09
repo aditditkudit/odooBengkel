@@ -27,6 +27,7 @@
         'views/menu_bengkel.xml',
         'views/res_partner.xml',
         'views/cb_lining.xml',
+        'views/cb_pendaftaran.xml',
 
     ],
     # only loaded in demonstration mode

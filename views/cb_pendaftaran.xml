@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        <!-- Pendaftaran tree view -->
+        <record id="cb_pendaftaran_tree_view" model="ir.ui.view">
+            <field name="name">cb.pendaftaran.tree</field>
+            <field name="model">cb.pendaftaran</field>
+            <field name="arch" type="xml">
+                <tree string="Pendaftaran">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="tanggal"/>
+                    <field name="kustomer_id"/>
+                    <field name="lining_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Pendaftaran form view -->
+        <record id="cb_pendaftaran_form_view" model="ir.ui.view">
+            <field name="name">cb.pendaftaran.form</field>
+            <field name="model">cb.pendaftaran</field>
+            <field name="arch" type="xml">
+                <form string="Pendaftaran">
+                    <header>
+                            <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}" />
+                            <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('state', '=', 'cancel')]}" />
+                            <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <!-- Add your fields here -->
+                            <field name="kustomer_id" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1" options="{'no_open': True, 'no_create':True}" />
+                            <field name="lining_id" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1" options="{'no_open': True, 'no_create':True}" />
+                            <field name="tanggal" attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Note">
+                                <group>
+                                <field name="note" nolabel="1" class="oe_inline" placeholder="Note"/>
+                                </group>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"/>
+                                        <field name="create_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"/>
+                                        <field name="write_date" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Pendaftaran search view -->
+        <record id="view_cb_pendaftaran_search" model="ir.ui.view">
+            <field name="name">cb.pendaftaran.search</field>
+            <field name="model">cb.pendaftaran</field>
+            <field name="arch" type="xml">
+                <search string="Search Pendaftaran">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="kustomer_id"/>
+                    <field name="lining_id"/>
+                    <field name="state"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
+                    <filter string="Confirm" name="confirm" domain="[('state', '=', 'confirm')]" />
+                    <group expand="0">
+                        <filter name="group_kustomer" string="Customer" domain="[]" context="{'group_by':'kustomer_id'}"/>
+                        <filter name="group_lining" string="Lining" domain="[]" context="{'group_by':'lining_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--CB Pendaftaran action tree -->
+        <record id="cb_pendaftaran_action_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="cb_pendaftaran_tree_view"/>
+            <field name="act_window_id" ref="action_pendaftaran_list"/>
+        </record>
+
+        <record id="cb_pendaftaran_action_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cb_pendaftaran_form_view"/>
+            <field name="act_window_id" ref="action_pendaftaran_list"/>
+        </record>
+
+    </data>
+</odoo>
